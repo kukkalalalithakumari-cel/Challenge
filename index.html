@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgriConnect Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2c7a7b;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+
+    ul, table {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      width: 100%;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sale-item {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+    }
+
+    button {
+      background-color: #38b2ac;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2c7a7b;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>AgriConnect Dashboard</h1>
+    <p>Live Weather | Soil Health | Crop Prices | Direct Sales</p>
+  </header>
+
+  <div class="container">
+    <!-- Weather Alerts -->
+    <div class="card" id="weather-section">
+      <h2>🌦️ Live Weather Alerts</h2>
+      <p><strong>Location:</strong> <span id="location">Loading...</span></p>
+      <p><strong>Temperature:</strong> <span id="temperature">--</span> °C</p>
+      <p><strong>Condition:</strong> <span id="condition">--</span></p>
+    </div>
+
+    <!-- Soil Health -->
+    <div class="card">
+      <h2>🌱 Soil Health (IoT)</h2>
+      <ul id="soil-data">
+        <li>Moisture: <strong>22%</strong></li>
+        <li>pH Level: <strong>6.5</strong></li>
+        <li>Nitrogen: <strong>Normal</strong></li>
+        <li>Phosphorus: <strong>Low</strong></li>
+        <li>Potassium: <strong>Optimal</strong></li>
+      </ul>
+      <button onclick="simulateSoilData()">🔁 Refresh Data</button>
+    </div>
+
+    <!-- Crop Price Tracker -->
+    <div class="card">
+      <h2>📊 Crop Price Tracking</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Crop</th>
+            <th>Price (₹/quintal)</th>
+          </tr>
+        </thead>
+        <tbody id="price-table">
+          <tr><td>Wheat</td><td>₹2200</td></tr>
+          <tr><td>Rice</td><td>₹1950</td></tr>
+          <tr><td>Cotton</td><td>₹5200</td></tr>
+          <tr><td>Maize</td><td>₹1650</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Farmer to Buyer Sales -->
+    <div class="card">
+      <h2>🛒 Direct Sales: Farmer ➜ Buyer</h2>
+      <div class="sale-item">
+        <strong>Product:</strong> Organic Tomatoes<br/>
+        <strong>Farmer:</strong> Ramesh Kumar<br/>
+        <strong>Price:</strong> ₹40/kg<br/>
+        <button>Contact Seller</button>
+      </div>
+      <div class="sale-item">
+        <strong>Product:</strong> Basmati Rice (25kg Bag)<br/>
+        <strong>Farmer:</strong> Sunita Devi<br/>
+        <strong>Price:</strong> ₹1200<br/>
+        <button>Contact Seller</button>
+      </div>
+      <div class="sale-item">
+        <strong>Product:</strong> Groundnuts (Raw)<br/>
+        <strong>Farmer:</strong> Ali Ahmed<br/>
+        <strong>Price:</strong> ₹75/kg<br/>
+        <button>Contact Seller</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simulated Weather Fetch
+    function fetchWeather() {
+      // Placeholder data (replace with real API if needed)
+      const mockWeather = {
+        location: "Nagpur, MH",
+        temperature: 31,
+        condition: "Partly Cloudy"
+      };
+
+      document.getElementById("location").textContent = mockWeather.location;
+      document.getElementById("temperature").textContent = mockWeather.temperature;
+      document.getElementById("condition").textContent = mockWeather.condition;
+    }
+
+    // Simulated Soil Data Refresh
+    function simulateSoilData() {
+      const random = (min, max) => (Math.random() * (max - min) + min).toFixed(1);
+      const soilList = document.getElementById("soil-data");
+      soilList.innerHTML = `
+        <li>Moisture: <strong>${random(15, 35)}%</strong></li>
+        <li>pH Level: <strong>${random(5.5, 7.5)}</strong></li>
+        <li>Nitrogen: <strong>${Math.random() > 0.5 ? 'Normal' : 'Low'}</strong></li>
+        <li>Phosphorus: <strong>${Math.random() > 0.5 ? 'Optimal' : 'Low'}</strong></li>
+        <li>Potassium: <strong>${Math.random() > 0.5 ? 'Optimal' : 'Deficient'}</strong></li>
+      `;
+    }
+
+    // Initial Load
+    fetchWeather();
+  </script>
+</body>
+</html>
